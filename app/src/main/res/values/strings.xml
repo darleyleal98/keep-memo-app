@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">KeepMemo</string>
+    <string name="keep_memo">Keep Memo</string>
+    <string name="error_message">The title must contain a maximum of 20 characters.</string>
+    <string name="title">Note Title</string>
+    <string name="description">Description</string>
+    <string name="title_are_you_sure_about_this">Are you sure about this?</string>
+    <string name="message_delete_item">If you confirm your note will be permanently deleted!</string>
+</resources>
