@@ -104,28 +104,36 @@ fun SearchNoteScreen(
                 ) {
                     LazyColumn() {
                         items(notes, key = { it.id }) {
-                            ListItem(
-                                headlineContent = { Text(it.title) },
-                                supportingContent = {
-                                    Text(
-                                        it.description,
-                                        overflow = TextOverflow.Ellipsis
-                                    )
-                                },
-                                leadingContent = {
-                                    Icon(
-                                        Icons.Default.EditNote,
-                                        contentDescription = null
-                                    )
-                                },
-                                colors = ListItemDefaults.colors(
-                                    containerColor = Color.Transparent
-                                ),
-                                modifier = modifier.clickable {
-                                    itemSelected = it.id
-                                    itemSelected?.let { onNavigateToUpdateNoteScreen(it) }
-                                }
-                            )
+
+                            val containsValue = remember(text) {
+                                it.title.contains(text, true) ||
+                                        it.description.contains(text, true)
+                            }
+
+                            if (containsValue) {
+                                ListItem(
+                                    headlineContent = { Text(it.title) },
+                                    supportingContent = {
+                                        Text(
+                                            it.description,
+                                            overflow = TextOverflow.Ellipsis
+                                        )
+                                    },
+                                    leadingContent = {
+                                        Icon(
+                                            Icons.Default.EditNote,
+                                            contentDescription = null
+                                        )
+                                    },
+                                    colors = ListItemDefaults.colors(
+                                        containerColor = Color.Transparent
+                                    ),
+                                    modifier = modifier.clickable {
+                                        itemSelected = it.id
+                                        itemSelected?.let { onNavigateToUpdateNoteScreen(it) }
+                                    }
+                                )
+                            }
                         }
                     }
                 }
@@ -140,15 +148,19 @@ fun SearchNoteScreen(
                     verticalItemSpacing = 4.dp,
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                     content = {
-                        items(notes) {
-                            NoteItemCard(
-                                isClicked = {
-                                    showBottomSheet = true
-                                }, noteId = { id ->
-                                    itemSelected = id
-                                },
-                                note = it
-                            )
+                        when {
+                            text.isEmpty() -> {
+                                items(notes) {
+                                    NoteItemCard(
+                                        isClicked = {
+                                            showBottomSheet = true
+                                        }, noteId = { id ->
+                                            itemSelected = id
+                                        },
+                                        note = it
+                                    )
+                                }
+                            }
                         }
                     },
                     modifier = modifier.fillMaxSize()
@@ -179,7 +191,7 @@ fun SearchNoteScreen(
                         DeleteNoteAlertDialog(
                             bottomSheet = { showBottomSheet = it },
                             id = itemSelected,
-                            item = { removeItem = it},
+                            item = { removeItem = it },
                             localContext = context,
                             viewModel = viewModel
                         )
