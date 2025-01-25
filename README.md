@@ -1,7 +1,7 @@
 # Keep Memo:
 <p> 
   
-### <li> Linguagem do projeto: Kotlin, com o Jetpack Composable🚀🚀 </li>
+### <li> Linguagem do projeto: Kotlin, com o Jetpack Compose🚀🚀 </li>
 
 Criei esse aplicativo para praticar os seguintes conceitos:
 
